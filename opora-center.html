@@ -1,0 +1,816 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ОПОРА — центр психологической помощи</title>
+<meta name="description" content="ОПОРА — центр психологической помощи. Индивидуальная, семейная и детская терапия, работа с тревогой, кризисами и выгоранием.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --black:#0D0D0F;
+    --ink:#16161A;
+    --blue:#1C3D7A;
+    --blue-deep:#122A57;
+    --blue-soft:#DCE3F0;
+    --white:#FFFFFF;
+    --cream:#F4EEE3;
+    --cream-dark:#E8DFCF;
+    --muted:#6B6B72;
+    --line:rgba(13,13,15,.12);
+    --line-light:rgba(255,255,255,.14);
+    --radius:4px;
+    --container:1240px;
+    --ease:cubic-bezier(.22,.61,.36,1);
+  }
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+  body{font-family:'Montserrat',sans-serif;color:var(--black);background:var(--white);line-height:1.6;font-size:16px;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  img,svg{display:block;max-width:100%}
+  a{color:inherit;text-decoration:none}
+  button,input,textarea,select{font:inherit;color:inherit}
+  .container{width:100%;max-width:var(--container);margin:0 auto;padding:0 32px}
+  .eyebrow{display:inline-flex;align-items:center;gap:12px;font-size:12px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--blue)}
+  .eyebrow::before{content:"";width:32px;height:1px;background:currentColor}
+  .section{padding:120px 0}
+  .section-head{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:end;margin-bottom:64px}
+  .section-title{font-size:clamp(30px,4vw,52px);font-weight:300;line-height:1.12;letter-spacing:-.02em;margin-top:20px}
+  .section-title b{font-weight:600}
+  .section-lead{color:var(--muted);font-size:17px;max-width:480px;justify-self:end}
+
+  /* Buttons */
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:12px;height:56px;padding:0 32px;font-size:13px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;border:1px solid transparent;border-radius:var(--radius);cursor:pointer;transition:background .3s var(--ease),color .3s var(--ease),border-color .3s var(--ease)}
+  .btn svg{width:18px;height:18px;transition:transform .3s var(--ease)}
+  .btn:hover svg{transform:translateX(4px)}
+  .btn-primary{background:var(--blue);color:var(--white)}
+  .btn-primary:hover{background:var(--black)}
+  .btn-light{background:var(--cream);color:var(--black)}
+  .btn-light:hover{background:var(--white)}
+  .btn-outline{border-color:var(--line-light);color:var(--white);background:transparent}
+  .btn-outline:hover{border-color:var(--white)}
+  .btn-dark{background:var(--black);color:var(--white)}
+  .btn-dark:hover{background:var(--blue)}
+
+  /* Header */
+  .header{position:fixed;inset:0 0 auto 0;z-index:100;transition:background .35s var(--ease),border-color .35s var(--ease);border-bottom:1px solid transparent}
+  .header.scrolled{background:rgba(13,13,15,.92);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-color:var(--line-light)}
+  .header-inner{display:flex;align-items:center;justify-content:space-between;height:88px;transition:height .35s var(--ease)}
+  .header.scrolled .header-inner{height:72px}
+  .logo{display:flex;align-items:center;gap:14px;color:var(--white)}
+  .logo-mark{width:40px;height:40px;border:1px solid var(--cream);display:grid;place-items:center;flex-shrink:0}
+  .logo-mark span{width:14px;height:14px;background:var(--cream);border-radius:50%}
+  .logo-text{display:flex;flex-direction:column;line-height:1.1}
+  .logo-text strong{font-size:18px;font-weight:700;letter-spacing:.28em}
+  .logo-text small{font-size:10px;font-weight:400;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.6);margin-top:3px}
+  .nav{display:flex;gap:40px}
+  .nav a{font-size:13px;font-weight:500;letter-spacing:.06em;color:rgba(255,255,255,.78);position:relative;padding:6px 0;transition:color .3s}
+  .nav a::after{content:"";position:absolute;left:0;bottom:0;width:0;height:1px;background:var(--cream);transition:width .35s var(--ease)}
+  .nav a:hover{color:var(--white)}
+  .nav a:hover::after{width:100%}
+  .header-actions{display:flex;align-items:center;gap:24px}
+  .header-phone{font-size:14px;font-weight:600;color:var(--white);letter-spacing:.04em}
+  .header .btn{height:46px;padding:0 22px;font-size:12px}
+  .burger{display:none;width:46px;height:46px;border:1px solid var(--line-light);background:transparent;cursor:pointer;position:relative;border-radius:var(--radius)}
+  .burger span{position:absolute;left:12px;right:12px;height:1.5px;background:var(--white);transition:transform .35s var(--ease),opacity .3s}
+  .burger span:nth-child(1){top:16px}
+  .burger span:nth-child(2){top:22px}
+  .burger span:nth-child(3){top:28px}
+  .burger.active span:nth-child(1){transform:translateY(6px) rotate(45deg)}
+  .burger.active span:nth-child(2){opacity:0}
+  .burger.active span:nth-child(3){transform:translateY(-6px) rotate(-45deg)}
+  .mobile-menu{position:fixed;inset:0;background:var(--black);z-index:90;padding:120px 32px 40px;display:flex;flex-direction:column;justify-content:space-between;transform:translateY(-100%);transition:transform .5s var(--ease);visibility:hidden}
+  .mobile-menu.open{transform:none;visibility:visible}
+  .mobile-menu nav{display:flex;flex-direction:column}
+  .mobile-menu nav a{font-size:28px;font-weight:300;color:var(--white);padding:16px 0;border-bottom:1px solid var(--line-light);display:flex;justify-content:space-between;align-items:center}
+  .mobile-menu nav a span{font-size:12px;color:rgba(255,255,255,.4);letter-spacing:.1em}
+  .mobile-menu-foot{display:flex;flex-direction:column;gap:16px;color:rgba(255,255,255,.7);font-size:15px}
+
+  /* Hero */
+  .hero{background:var(--black);color:var(--white);position:relative;min-height:100vh;min-height:100svh;display:flex;align-items:center;padding:140px 0 80px;overflow:hidden}
+  .hero-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:64px;align-items:center;position:relative;z-index:2}
+  .hero .eyebrow{color:var(--cream)}
+  .hero h1{font-size:clamp(40px,6.2vw,86px);font-weight:300;line-height:1.04;letter-spacing:-.035em;margin:28px 0 32px}
+  .hero h1 em{font-style:italic;font-weight:300;color:var(--cream)}
+  .hero h1 b{font-weight:600}
+  .hero-text{font-size:18px;color:rgba(255,255,255,.7);max-width:520px;margin-bottom:44px}
+  .hero-cta{display:flex;flex-wrap:wrap;gap:16px}
+  .hero-visual{position:relative;aspect-ratio:4/5;width:100%;max-width:460px;justify-self:end}
+  .hero-card{position:absolute;inset:0;background:var(--blue);overflow:hidden}
+  .hero-card svg{position:absolute;inset:0;width:100%;height:100%}
+  .hero-card-label{position:absolute;left:28px;bottom:28px;right:28px;display:flex;justify-content:space-between;align-items:flex-end;gap:16px}
+  .hero-card-label p{font-size:13px;letter-spacing:.08em;color:rgba(255,255,255,.8);max-width:200px}
+  .hero-card-label strong{font-size:56px;font-weight:300;line-height:1;color:var(--cream)}
+  .hero-badge{position:absolute;top:-28px;left:-28px;background:var(--cream);color:var(--black);padding:22px 24px;width:200px;z-index:3}
+  .hero-badge strong{display:block;font-size:32px;font-weight:600;line-height:1}
+  .hero-badge span{font-size:12px;letter-spacing:.06em;color:var(--muted);display:block;margin-top:8px}
+  .hero-stats{display:grid;grid-template-columns:repeat(3,1fr);margin-top:80px;border-top:1px solid var(--line-light);position:relative;z-index:2}
+  .hero-stat{padding:28px 24px 0 0}
+  .hero-stat + .hero-stat{padding-left:24px;border-left:1px solid var(--line-light)}
+  .hero-stat strong{font-size:clamp(28px,3vw,40px);font-weight:300;display:block;line-height:1.1}
+  .hero-stat span{font-size:13px;color:rgba(255,255,255,.55);letter-spacing:.04em}
+  .hero-bg-text{position:absolute;right:-2vw;bottom:-4vw;font-size:22vw;font-weight:700;color:rgba(255,255,255,.025);letter-spacing:-.04em;line-height:1;pointer-events:none;user-select:none;z-index:1}
+
+  /* Marquee strip */
+  .strip{background:var(--cream);overflow:hidden;border-bottom:1px solid var(--cream-dark)}
+  .strip-track{display:flex;gap:56px;padding:22px 0;white-space:nowrap;animation:marquee 38s linear infinite;width:max-content}
+  .strip-track span{font-size:14px;font-weight:500;letter-spacing:.16em;text-transform:uppercase;display:flex;align-items:center;gap:56px}
+  .strip-track span::after{content:"";width:6px;height:6px;background:var(--blue);border-radius:50%}
+  @keyframes marquee{to{transform:translateX(-50%)}}
+
+  /* Services */
+  .services{background:var(--cream)}
+  .services-grid{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--line);border-left:1px solid var(--line)}
+  .service{padding:44px 36px 40px;border-right:1px solid var(--line);border-bottom:1px solid var(--line);display:flex;flex-direction:column;min-height:380px;position:relative;transition:background .4s var(--ease),color .4s var(--ease);background:var(--cream)}
+  .service:hover{background:var(--black);color:var(--white)}
+  .service-num{font-size:13px;font-weight:500;color:var(--muted);letter-spacing:.1em;transition:color .4s}
+  .service:hover .service-num{color:var(--cream)}
+  .service-icon{width:56px;height:56px;margin:36px 0 28px;color:var(--blue);transition:color .4s}
+  .service:hover .service-icon{color:var(--cream)}
+  .service h3{font-size:22px;font-weight:600;line-height:1.25;margin-bottom:14px;letter-spacing:-.01em}
+  .service p{font-size:15px;color:var(--muted);transition:color .4s;flex-grow:1}
+  .service:hover p{color:rgba(255,255,255,.65)}
+  .service-foot{display:flex;justify-content:space-between;align-items:center;margin-top:32px;padding-top:20px;border-top:1px solid var(--line);transition:border-color .4s}
+  .service:hover .service-foot{border-color:var(--line-light)}
+  .service-price{font-size:14px;font-weight:600}
+  .service-arrow{width:40px;height:40px;border:1px solid var(--line);display:grid;place-items:center;transition:all .4s var(--ease);border-radius:var(--radius)}
+  .service:hover .service-arrow{background:var(--cream);border-color:var(--cream);color:var(--black)}
+  .service-arrow svg{width:16px;height:16px}
+  .service.featured{background:var(--blue);color:var(--white)}
+  .service.featured .service-num,.service.featured .service-icon{color:var(--cream)}
+  .service.featured p{color:rgba(255,255,255,.7)}
+  .service.featured .service-foot{border-color:var(--line-light)}
+  .service.featured .service-arrow{border-color:var(--line-light)}
+  .service.featured:hover{background:var(--black)}
+
+  /* Approach */
+  .approach{background:var(--white)}
+  .approach-grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:96px;align-items:start}
+  .approach-quote{font-size:clamp(24px,2.6vw,34px);font-weight:300;line-height:1.35;letter-spacing:-.01em;margin-top:24px}
+  .approach-quote b{font-weight:600;color:var(--blue)}
+  .steps{display:flex;flex-direction:column}
+  .step{display:grid;grid-template-columns:80px 1fr;gap:24px;padding:32px 0;border-bottom:1px solid var(--line)}
+  .step:first-child{border-top:1px solid var(--line)}
+  .step-num{font-size:40px;font-weight:300;color:var(--blue);line-height:1}
+  .step h4{font-size:19px;font-weight:600;margin-bottom:8px}
+  .step p{color:var(--muted);font-size:15px}
+
+  /* Specialists */
+  .team{background:var(--black);color:var(--white)}
+  .team .eyebrow{color:var(--cream)}
+  .team .section-lead{color:rgba(255,255,255,.6)}
+  .team-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px}
+  .member{cursor:default}
+  .member-photo{aspect-ratio:3/4;position:relative;overflow:hidden;margin-bottom:24px;background:var(--ink)}
+  .member-photo svg{position:absolute;inset:0;width:100%;height:100%;transition:transform .8s var(--ease)}
+  .member:hover .member-photo svg{transform:scale(1.04)}
+  .member-tag{position:absolute;top:16px;left:16px;background:var(--cream);color:var(--black);font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:7px 12px;z-index:2}
+  .member-exp{position:absolute;right:16px;bottom:16px;z-index:2;font-size:12px;letter-spacing:.08em;color:var(--white);border:1px solid rgba(255,255,255,.35);padding:7px 12px;background:rgba(13,13,15,.35)}
+  .member h3{font-size:20px;font-weight:600;margin-bottom:4px}
+  .member-role{font-size:14px;color:var(--cream);margin-bottom:14px}
+  .member-skills{display:flex;flex-wrap:wrap;gap:8px}
+  .member-skills span{font-size:12px;color:rgba(255,255,255,.65);border:1px solid var(--line-light);padding:5px 10px;border-radius:var(--radius)}
+
+  /* Feedback */
+  .feedback{background:var(--cream)}
+  .feedback-grid{display:grid;grid-template-columns:1fr 1fr;gap:0;background:var(--white);border:1px solid var(--line)}
+  .feedback-info{background:var(--blue);color:var(--white);padding:64px 56px;display:flex;flex-direction:column;justify-content:space-between;gap:48px}
+  .feedback-info .eyebrow{color:var(--cream)}
+  .feedback-info h2{font-size:clamp(30px,3.4vw,46px);font-weight:300;line-height:1.15;letter-spacing:-.02em;margin-top:20px}
+  .feedback-info h2 b{font-weight:600}
+  .feedback-info > div > p{margin-top:20px;color:rgba(255,255,255,.72);font-size:16px;max-width:420px}
+  .contacts{display:flex;flex-direction:column;gap:22px}
+  .contact-row{display:flex;gap:18px;align-items:flex-start;padding-top:22px;border-top:1px solid var(--line-light)}
+  .contact-row svg{width:22px;height:22px;flex-shrink:0;color:var(--cream);margin-top:2px}
+  .contact-row small{display:block;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.5);margin-bottom:4px}
+  .contact-row a,.contact-row span{font-size:16px;font-weight:500}
+  .form{padding:64px 56px}
+  .form h3{font-size:24px;font-weight:600;margin-bottom:8px}
+  .form > p{color:var(--muted);font-size:15px;margin-bottom:36px}
+  .field{position:relative;margin-bottom:26px}
+  .field label{display:block;font-size:11px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-bottom:10px}
+  .field input,.field textarea,.field select{width:100%;border:none;border-bottom:1px solid var(--line);background:transparent;padding:10px 0 14px;font-size:16px;outline:none;transition:border-color .3s;border-radius:0;-webkit-appearance:none;appearance:none}
+  .field select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' fill='none'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%230D0D0F' stroke-width='1.4'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 4px center;cursor:pointer;padding-right:24px}
+  .field textarea{resize:vertical;min-height:90px}
+  .field input:focus,.field textarea:focus,.field select:focus{border-color:var(--blue)}
+  .field.error input,.field.error select{border-color:#B3261E}
+  .field-error{font-size:12px;color:#B3261E;margin-top:6px;display:none}
+  .field.error .field-error{display:block}
+  .form-row{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+  .check{display:flex;gap:12px;align-items:flex-start;font-size:13px;color:var(--muted);margin:4px 0 32px;cursor:pointer}
+  .check input{appearance:none;-webkit-appearance:none;width:18px;height:18px;border:1px solid var(--black);flex-shrink:0;margin-top:2px;cursor:pointer;display:grid;place-items:center;border-radius:2px}
+  .check input:checked{background:var(--blue);border-color:var(--blue)}
+  .check input:checked::after{content:"";width:5px;height:9px;border:solid var(--white);border-width:0 2px 2px 0;transform:rotate(45deg) translate(-1px,-1px)}
+  .check a{text-decoration:underline;color:var(--black)}
+  .form .btn{width:100%}
+  .form-success{display:none;text-align:center;padding:40px 0}
+  .form-success.show{display:block}
+  .form-success-icon{width:72px;height:72px;border:1px solid var(--blue);display:grid;place-items:center;margin:0 auto 24px;color:var(--blue);border-radius:50%}
+  .form-success-icon svg{width:30px;height:30px}
+  .form-success h3{font-size:24px;margin-bottom:10px}
+  .form-success p{color:var(--muted)}
+
+  /* Reviews */
+  .reviews{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:24px}
+  .review{background:var(--white);padding:36px 32px;border:1px solid var(--line);display:flex;flex-direction:column}
+  .review-quote{font-size:48px;line-height:1;color:var(--blue);font-weight:600;height:32px}
+  .review p{font-size:15px;line-height:1.7;margin:16px 0 28px;flex-grow:1}
+  .review-author{display:flex;align-items:center;gap:14px;padding-top:20px;border-top:1px solid var(--line)}
+  .review-avatar{width:44px;height:44px;background:var(--black);color:var(--cream);display:grid;place-items:center;font-weight:600;font-size:14px;border-radius:50%}
+  .review-author strong{display:block;font-size:14px}
+  .review-author span{font-size:12px;color:var(--muted)}
+
+  /* FAQ */
+  .faq{background:var(--white)}
+  .faq-grid{display:grid;grid-template-columns:.8fr 1.2fr;gap:96px}
+  .faq-side p{color:var(--muted);margin:24px 0 36px;max-width:360px}
+  .faq-list{border-top:1px solid var(--line)}
+  .faq-item{border-bottom:1px solid var(--line)}
+  .faq-q{width:100%;background:none;border:none;text-align:left;padding:30px 0;display:flex;justify-content:space-between;align-items:center;gap:24px;cursor:pointer;font-size:18px;font-weight:500;transition:color .3s}
+  .faq-q:hover{color:var(--blue)}
+  .faq-icon{width:36px;height:36px;border:1px solid var(--line);flex-shrink:0;position:relative;border-radius:50%;transition:background .3s,border-color .3s}
+  .faq-icon::before,.faq-icon::after{content:"";position:absolute;top:50%;left:50%;width:12px;height:1.5px;background:currentColor;transform:translate(-50%,-50%);transition:transform .35s var(--ease)}
+  .faq-icon::after{transform:translate(-50%,-50%) rotate(90deg)}
+  .faq-item.open .faq-icon{background:var(--black);border-color:var(--black);color:var(--white)}
+  .faq-item.open .faq-icon::after{transform:translate(-50%,-50%) rotate(0)}
+  .faq-a{display:grid;grid-template-rows:0fr;transition:grid-template-rows .45s var(--ease)}
+  .faq-item.open .faq-a{grid-template-rows:1fr}
+  .faq-a > div{overflow:hidden}
+  .faq-a p{color:var(--muted);padding:0 64px 30px 0;font-size:16px}
+
+  /* CTA band */
+  .cta-band{background:var(--blue);color:var(--white);padding:80px 0}
+  .cta-band-inner{display:flex;justify-content:space-between;align-items:center;gap:40px}
+  .cta-band h2{font-size:clamp(26px,3.4vw,44px);font-weight:300;line-height:1.15;letter-spacing:-.02em;max-width:720px}
+  .cta-band h2 b{font-weight:600}
+
+  /* Footer */
+  .footer{background:var(--black);color:var(--white);padding:96px 0 32px}
+  .footer-top{display:grid;grid-template-columns:1.4fr 1fr 1fr 1.2fr;gap:48px;padding-bottom:64px;border-bottom:1px solid var(--line-light)}
+  .footer-about p{color:rgba(255,255,255,.55);font-size:14px;margin-top:24px;max-width:300px}
+  .footer h5{font-size:11px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--cream);margin-bottom:24px}
+  .footer ul{list-style:none;display:flex;flex-direction:column;gap:12px}
+  .footer ul a,.footer ul li{font-size:14px;color:rgba(255,255,255,.7);transition:color .3s}
+  .footer ul a:hover{color:var(--white)}
+  .socials{display:flex;gap:10px;margin-top:28px}
+  .socials a{width:42px;height:42px;border:1px solid var(--line-light);display:grid;place-items:center;transition:background .3s,border-color .3s;border-radius:var(--radius)}
+  .socials a:hover{background:var(--cream);border-color:var(--cream);color:var(--black)}
+  .socials svg{width:18px;height:18px}
+  .footer-bottom{display:flex;justify-content:space-between;gap:24px;padding-top:32px;font-size:13px;color:rgba(255,255,255,.4);flex-wrap:wrap}
+  .footer-bottom a:hover{color:var(--white)}
+  .footer-big{font-size:clamp(60px,15vw,220px);font-weight:700;letter-spacing:-.04em;line-height:.85;color:rgba(244,238,227,.06);margin:56px 0 0;user-select:none}
+
+  /* Reveal */
+  .reveal{opacity:0;transform:translateY(28px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
+  .reveal.visible{opacity:1;transform:none}
+  @media (prefers-reduced-motion:reduce){
+    .reveal{opacity:1;transform:none;transition:none}
+    .strip-track{animation:none}
+    html{scroll-behavior:auto}
+  }
+
+  /* Responsive */
+  @media (max-width:1100px){
+    .nav{gap:28px}
+    .header-phone{display:none}
+    .team-grid{grid-template-columns:repeat(2,1fr);gap:40px 24px}
+    .footer-top{grid-template-columns:1fr 1fr}
+    .approach-grid,.faq-grid{gap:56px}
+  }
+  @media (max-width:960px){
+    .section{padding:96px 0}
+    .nav,.header .btn{display:none}
+    .burger{display:block}
+    .hero-grid{grid-template-columns:1fr;gap:72px}
+    .hero-visual{justify-self:start;max-width:420px;margin-left:28px}
+    .section-head{grid-template-columns:1fr;gap:20px}
+    .section-lead{justify-self:start}
+    .services-grid{grid-template-columns:repeat(2,1fr)}
+    .approach-grid,.faq-grid{grid-template-columns:1fr}
+    .feedback-grid{grid-template-columns:1fr}
+    .reviews{grid-template-columns:1fr}
+    .cta-band-inner{flex-direction:column;align-items:flex-start}
+  }
+  @media (max-width:640px){
+    .container{padding:0 20px}
+    .section{padding:72px 0}
+    .section-head{margin-bottom:40px}
+    .header-inner{height:72px}
+    .logo-text small{display:none}
+    .hero{padding:120px 0 56px}
+    .hero-text{font-size:16px}
+    .hero-cta .btn{width:100%}
+    .hero-visual{margin-left:16px;max-width:100%;width:calc(100% - 16px)}
+    .hero-badge{top:-20px;left:-16px;width:170px;padding:18px}
+    .hero-badge strong{font-size:26px}
+    .hero-stats{grid-template-columns:1fr;margin-top:56px}
+    .hero-stat,.hero-stat + .hero-stat{padding:20px 0;border-left:none;border-bottom:1px solid var(--line-light);display:flex;justify-content:space-between;align-items:baseline;gap:16px}
+    .services-grid{grid-template-columns:1fr}
+    .service{min-height:auto;padding:36px 24px}
+    .step{grid-template-columns:56px 1fr;gap:16px}
+    .step-num{font-size:30px}
+    .team-grid{grid-template-columns:1fr;gap:48px}
+    .feedback-info,.form{padding:44px 24px}
+    .form-row{grid-template-columns:1fr;gap:0}
+    .faq-q{font-size:16px;padding:24px 0}
+    .faq-a p{padding-right:0}
+    .footer{padding:72px 0 28px}
+    .footer-top{grid-template-columns:1fr;gap:40px}
+    .footer-bottom{flex-direction:column;gap:12px}
+    .btn{height:52px;padding:0 24px}
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="header" id="header">
+  <div class="container header-inner">
+    <a href="#top" class="logo" aria-label="ОПОРА — на главную">
+      <div class="logo-mark"><span></span></div>
+      <div class="logo-text"><strong>ОПОРА</strong><small>центр психологии</small></div>
+    </a>
+    <nav class="nav" aria-label="Основная навигация">
+      <a href="#services">Услуги</a>
+      <a href="#approach">Подход</a>
+      <a href="#team">Специалисты</a>
+      <a href="#feedback">Связь</a>
+      <a href="#faq">FAQ</a>
+    </nav>
+    <div class="header-actions">
+      <a href="tel:+998901234567" class="header-phone">+998 90 123 45 67</a>
+      <a href="#feedback" class="btn btn-light">Записаться</a>
+      <button class="burger" id="burger" aria-label="Открыть меню" aria-expanded="false"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</header>
+
+<div class="mobile-menu" id="mobileMenu">
+  <nav>
+    <a href="#services">Услуги <span>01</span></a>
+    <a href="#approach">Подход <span>02</span></a>
+    <a href="#team">Специалисты <span>03</span></a>
+    <a href="#feedback">Связь <span>04</span></a>
+    <a href="#faq">FAQ <span>05</span></a>
+  </nav>
+  <div class="mobile-menu-foot">
+    <a href="tel:+998901234567">+998 90 123 45 67</a>
+    <a href="mailto:hello@opora-center.uz">hello@opora-center.uz</a>
+    <a href="#feedback" class="btn btn-light">Записаться на консультацию</a>
+  </div>
+</div>
+
+<main id="top">
+
+<!-- HERO -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-grid">
+      <div class="reveal">
+        <span class="eyebrow">Центр психологической помощи</span>
+        <h1>Место, где можно <em>выдохнуть</em> и <b>найти опору</b> в себе</h1>
+        <p class="hero-text">Бережная и профессиональная поддержка взрослых, пар, детей и подростков. Конфиденциально, без оценок и в вашем темпе.</p>
+        <div class="hero-cta">
+          <a href="#feedback" class="btn btn-light">Записаться на консультацию
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </a>
+          <a href="#services" class="btn btn-outline">Наши услуги</a>
+        </div>
+      </div>
+      <div class="hero-visual reveal">
+        <div class="hero-badge"><strong>15 000+</strong><span>часов терапии проведено нашими специалистами</span></div>
+        <div class="hero-card">
+          <svg viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+            <rect width="400" height="500" fill="#1C3D7A"/>
+            <circle cx="200" cy="210" r="150" fill="none" stroke="#F4EEE3" stroke-opacity=".18"/>
+            <circle cx="200" cy="210" r="110" fill="none" stroke="#F4EEE3" stroke-opacity=".28"/>
+            <circle cx="200" cy="210" r="70" fill="none" stroke="#F4EEE3" stroke-opacity=".45"/>
+            <circle cx="200" cy="210" r="30" fill="#F4EEE3"/>
+            <line x1="200" y1="0" x2="200" y2="500" stroke="#F4EEE3" stroke-opacity=".12"/>
+            <line x1="0" y1="210" x2="400" y2="210" stroke="#F4EEE3" stroke-opacity=".12"/>
+            <rect x="0" y="380" width="400" height="120" fill="#122A57"/>
+          </svg>
+          <div class="hero-card-label">
+            <p>Индивидуальная, семейная и детская терапия</p>
+            <strong>12</strong>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="hero-stats reveal">
+      <div class="hero-stat"><strong>12</strong><span>специалистов в команде</span></div>
+      <div class="hero-stat"><strong>10+ лет</strong><span>средний опыт практики</span></div>
+      <div class="hero-stat"><strong>97%</strong><span>клиентов рекомендуют нас</span></div>
+    </div>
+  </div>
+  <div class="hero-bg-text" aria-hidden="true">ОПОРА</div>
+</section>
+
+<!-- STRIP -->
+<div class="strip" aria-hidden="true">
+  <div class="strip-track">
+    <span>Тревога</span><span>Выгорание</span><span>Отношения</span><span>Самооценка</span><span>Кризисы</span><span>Утрата</span><span>Детско-родительские отношения</span><span>Стресс</span>
+    <span>Тревога</span><span>Выгорание</span><span>Отношения</span><span>Самооценка</span><span>Кризисы</span><span>Утрата</span><span>Детско-родительские отношения</span><span>Стресс</span>
+  </div>
+</div>
+
+<!-- SERVICES -->
+<section class="section services" id="services">
+  <div class="container">
+    <div class="section-head reveal">
+      <div>
+        <span class="eyebrow">Услуги</span>
+        <h2 class="section-title">С чем мы <b>помогаем</b></h2>
+      </div>
+      <p class="section-lead">Подбираем формат и специалиста под ваш запрос. Первая встреча — знакомство, на ней вы вместе с психологом определяете цели работы.</p>
+    </div>
+    <div class="services-grid">
+      <article class="service reveal">
+        <span class="service-num">01</span>
+        <svg class="service-icon" viewBox="0 0 56 56" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="28" cy="20" r="9"/><path d="M12 48c2-9 8.5-14 16-14s14 5 16 14"/></svg>
+        <h3>Индивидуальная терапия</h3>
+        <p>Работа с тревогой, депрессивными состояниями, самооценкой, выгоранием и жизненными изменениями.</p>
+        <div class="service-foot"><span class="service-price">от 350 000 сум</span><a href="#feedback" class="service-arrow" aria-label="Записаться"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M7 17L17 7M9 7h8v8"/></svg></a></div>
+      </article>
+      <article class="service featured reveal">
+        <span class="service-num">02</span>
+        <svg class="service-icon" viewBox="0 0 56 56" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="20" cy="20" r="7"/><circle cx="36" cy="20" r="7"/><path d="M6 46c1.5-7 7-11 14-11 3 0 5.6.8 8 2.2 2.4-1.4 5-2.2 8-2.2 7 0 12.5 4 14 11"/></svg>
+        <h3>Семейная и парная терапия</h3>
+        <p>Кризисы в отношениях, конфликты, восстановление доверия, подготовка к рождению ребёнка, развод.</p>
+        <div class="service-foot"><span class="service-price">от 500 000 сум</span><a href="#feedback" class="service-arrow" aria-label="Записаться"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M7 17L17 7M9 7h8v8"/></svg></a></div>
+      </article>
+      <article class="service reveal">
+        <span class="service-num">03</span>
+        <svg class="service-icon" viewBox="0 0 56 56" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="22" cy="16" r="7"/><circle cx="38" cy="26" r="5"/><path d="M8 48c1.5-8 7-12.5 14-12.5 4 0 7.4 1.4 9.8 4M30 48c.8-5 4-8 8-8s7.2 3 8 8"/></svg>
+        <h3>Детский и подростковый психолог</h3>
+        <p>Адаптация к школе, страхи, поведенческие трудности, эмоциональная регуляция, сложности общения.</p>
+        <div class="service-foot"><span class="service-price">от 300 000 сум</span><a href="#feedback" class="service-arrow" aria-label="Записаться"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M7 17L17 7M9 7h8v8"/></svg></a></div>
+      </article>
+      <article class="service reveal">
+        <span class="service-num">04</span>
+        <svg class="service-icon" viewBox="0 0 56 56" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M28 8v8M28 40v8M8 28h8M40 28h8M14 14l5.5 5.5M36.5 36.5L42 42M14 42l5.5-5.5M36.5 19.5L42 14"/><circle cx="28" cy="28" r="6"/></svg>
+        <h3>Кризисная помощь</h3>
+        <p>Поддержка при утрате, разрыве, потере работы и после травмирующих событий. Срочная запись в течение 24 часов.</p>
+        <div class="service-foot"><span class="service-price">от 400 000 сум</span><a href="#feedback" class="service-arrow" aria-label="Записаться"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M7 17L17 7M9 7h8v8"/></svg></a></div>
+      </article>
+      <article class="service reveal">
+        <span class="service-num">05</span>
+        <svg class="service-icon" viewBox="0 0 56 56" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="16" cy="18" r="5"/><circle cx="40" cy="18" r="5"/><circle cx="16" cy="38" r="5"/><circle cx="40" cy="38" r="5"/><circle cx="28" cy="28" r="4"/></svg>
+        <h3>Групповая терапия</h3>
+        <p>Терапевтические группы и тренинги: уверенность в себе, управление стрессом, группы поддержки для родителей.</p>
+        <div class="service-foot"><span class="service-price">от 200 000 сум</span><a href="#feedback" class="service-arrow" aria-label="Записаться"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M7 17L17 7M9 7h8v8"/></svg></a></div>
+      </article>
+      <article class="service reveal">
+        <span class="service-num">06</span>
+        <svg class="service-icon" viewBox="0 0 56 56" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="8" y="12" width="40" height="27" rx="1"/><path d="M20 46h16M28 39v7"/><circle cx="28" cy="24" r="5"/></svg>
+        <h3>Онлайн-консультации</h3>
+        <p>Те же специалисты и тот же уровень работы — из любой точки мира, в удобное для вас время.</p>
+        <div class="service-foot"><span class="service-price">от 300 000 сум</span><a href="#feedback" class="service-arrow" aria-label="Записаться"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M7 17L17 7M9 7h8v8"/></svg></a></div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- APPROACH -->
+<section class="section approach" id="approach">
+  <div class="container approach-grid">
+    <div class="reveal">
+      <span class="eyebrow">Как мы работаем</span>
+      <p class="approach-quote">Мы не даём готовых советов. Мы создаём <b>безопасное пространство</b>, в котором вы находите собственные ответы.</p>
+    </div>
+    <div class="steps">
+      <div class="step reveal"><span class="step-num">01</span><div><h4>Заявка</h4><p>Оставляете заявку на сайте или звоните. Администратор уточнит запрос и подберёт специалиста.</p></div></div>
+      <div class="step reveal"><span class="step-num">02</span><div><h4>Первая встреча</h4><p>Знакомство с психологом, обсуждение ситуации и целей. Вы решаете, комфортно ли вам продолжать.</p></div></div>
+      <div class="step reveal"><span class="step-num">03</span><div><h4>Терапия</h4><p>Регулярные сессии по 50 минут. Методы подбираются под вас: КПТ, гештальт, схема-терапия, EMDR и другие.</p></div></div>
+      <div class="step reveal"><span class="step-num">04</span><div><h4>Результат</h4><p>Вы замечаете изменения в самочувствии и отношениях, а навыки остаются с вами после завершения работы.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- TEAM -->
+<section class="section team" id="team">
+  <div class="container">
+    <div class="section-head reveal">
+      <div>
+        <span class="eyebrow">Наши специалисты</span>
+        <h2 class="section-title">Команда, которой <b>доверяют</b></h2>
+      </div>
+      <p class="section-lead">Все специалисты имеют профильное образование, проходят регулярную супервизию и придерживаются этического кодекса психолога.</p>
+    </div>
+    <div class="team-grid">
+      <article class="member reveal">
+        <div class="member-photo">
+          <span class="member-tag">Руководитель</span>
+          <svg viewBox="0 0 300 400" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><rect width="300" height="400" fill="#1C3D7A"/><circle cx="150" cy="150" r="58" fill="#F4EEE3"/><path d="M40 400c8-90 52-140 110-140s102 50 110 140z" fill="#F4EEE3"/></svg>
+          <span class="member-exp">18 лет опыта</span>
+        </div>
+        <h3>Анна Ковалёва</h3>
+        <p class="member-role">Клинический психолог</p>
+        <div class="member-skills"><span>КПТ</span><span>Тревога</span><span>Депрессия</span></div>
+      </article>
+      <article class="member reveal">
+        <div class="member-photo">
+          <svg viewBox="0 0 300 400" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><rect width="300" height="400" fill="#F4EEE3"/><circle cx="150" cy="150" r="58" fill="#0D0D0F"/><path d="M40 400c8-90 52-140 110-140s102 50 110 140z" fill="#0D0D0F"/></svg>
+          <span class="member-exp" style="color:#0D0D0F;border-color:rgba(13,13,15,.3);background:rgba(244,238,227,.5)">12 лет опыта</span>
+        </div>
+        <h3>Дилшод Рахимов</h3>
+        <p class="member-role">Семейный психотерапевт</p>
+        <div class="member-skills"><span>Пары</span><span>Системная терапия</span></div>
+      </article>
+      <article class="member reveal">
+        <div class="member-photo">
+          <svg viewBox="0 0 300 400" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><rect width="300" height="400" fill="#16161A"/><circle cx="150" cy="150" r="58" fill="#1C3D7A"/><path d="M40 400c8-90 52-140 110-140s102 50 110 140z" fill="#1C3D7A"/></svg>
+          <span class="member-exp">9 лет опыта</span>
+        </div>
+        <h3>Мария Ли</h3>
+        <p class="member-role">Детский психолог</p>
+        <div class="member-skills"><span>Дети 3–12</span><span>Игровая терапия</span></div>
+      </article>
+      <article class="member reveal">
+        <div class="member-photo">
+          <svg viewBox="0 0 300 400" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><rect width="300" height="400" fill="#E8DFCF"/><circle cx="150" cy="150" r="58" fill="#122A57"/><path d="M40 400c8-90 52-140 110-140s102 50 110 140z" fill="#122A57"/></svg>
+          <span class="member-exp" style="color:#0D0D0F;border-color:rgba(13,13,15,.3);background:rgba(244,238,227,.5)">11 лет опыта</span>
+        </div>
+        <h3>Камила Юсупова</h3>
+        <p class="member-role">Психотерапевт, травматерапевт</p>
+        <div class="member-skills"><span>EMDR</span><span>Кризисы</span><span>Утрата</span></div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- FEEDBACK -->
+<section class="section feedback" id="feedback">
+  <div class="container">
+    <div class="feedback-grid reveal">
+      <div class="feedback-info">
+        <div>
+          <span class="eyebrow">Обратная связь</span>
+          <h2>Сделайте <b>первый шаг</b> — мы рядом</h2>
+          <p>Оставьте заявку, и администратор свяжется с вами в течение 30 минут в рабочее время. Все данные строго конфиденциальны.</p>
+        </div>
+        <div class="contacts">
+          <div class="contact-row">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 005 5L15 13l5 2v4a2 2 0 01-2 2A16 16 0 013 6a2 2 0 012-2"/></svg>
+            <div><small>Телефон</small><a href="tel:+998901234567">+998 90 123 45 67</a></div>
+          </div>
+          <div class="contact-row">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="5" width="18" height="14" rx="1"/><path d="M3 7l9 6 9-6"/></svg>
+            <div><small>Почта</small><a href="mailto:hello@opora-center.uz">hello@opora-center.uz</a></div>
+          </div>
+          <div class="contact-row">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 21s-7-6.2-7-12a7 7 0 0114 0c0 5.8-7 12-7 12z"/><circle cx="12" cy="9" r="2.5"/></svg>
+            <div><small>Адрес и часы</small><span>Ташкент, ул. Примерная, 10 · Пн–Сб, 9:00–21:00</span></div>
+          </div>
+        </div>
+      </div>
+
+      <form class="form" id="form" novalidate>
+        <div id="formFields">
+          <h3>Запись на консультацию</h3>
+          <p>Заполните форму — это займёт меньше минуты.</p>
+          <div class="form-row">
+            <div class="field" data-field="name">
+              <label for="name">Ваше имя</label>
+              <input type="text" id="name" name="name" autocomplete="given-name" placeholder="Как к вам обращаться">
+              <div class="field-error">Пожалуйста, укажите имя</div>
+            </div>
+            <div class="field" data-field="phone">
+              <label for="phone">Телефон</label>
+              <input type="tel" id="phone" name="phone" autocomplete="tel" placeholder="+998 __ ___ __ __">
+              <div class="field-error">Укажите корректный номер</div>
+            </div>
+          </div>
+          <div class="field" data-field="service">
+            <label for="service">Направление</label>
+            <select id="service" name="service">
+              <option value="">Выберите направление</option>
+              <option>Индивидуальная терапия</option>
+              <option>Семейная и парная терапия</option>
+              <option>Детский и подростковый психолог</option>
+              <option>Кризисная помощь</option>
+              <option>Групповая терапия</option>
+              <option>Онлайн-консультация</option>
+              <option>Не знаю, нужна помощь в выборе</option>
+            </select>
+            <div class="field-error">Выберите направление</div>
+          </div>
+          <div class="field">
+            <label for="message">Комментарий (необязательно)</label>
+            <textarea id="message" name="message" placeholder="Кратко опишите запрос или удобное время для звонка"></textarea>
+          </div>
+          <label class="check"><input type="checkbox" id="agree" checked> <span>Я согласен(на) с <a href="#">политикой конфиденциальности</a> и обработкой персональных данных</span></label>
+          <button type="submit" class="btn btn-dark">Отправить заявку
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </button>
+        </div>
+        <div class="form-success" id="formSuccess">
+          <div class="form-success-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></div>
+          <h3>Спасибо, заявка принята</h3>
+          <p>Мы свяжемся с вами в ближайшее время.</p>
+        </div>
+      </form>
+    </div>
+
+    <div class="reviews">
+      <figure class="review reveal">
+        <div class="review-quote">“</div>
+        <p>Пришла с сильной тревогой и бессонницей. Через три месяца работы я снова сплю и спокойно возвращаюсь к делам. Спасибо за бережность.</p>
+        <figcaption class="review-author"><div class="review-avatar">Н</div><div><strong>Нигора</strong><span>Индивидуальная терапия</span></div></figcaption>
+      </figure>
+      <figure class="review reveal">
+        <div class="review-quote">“</div>
+        <p>Мы с мужем были на грани развода. Семейные сессии помогли нам заново научиться разговаривать и слышать друг друга.</p>
+        <figcaption class="review-author"><div class="review-avatar">А</div><div><strong>Алина и Тимур</strong><span>Парная терапия</span></div></figcaption>
+      </figure>
+      <figure class="review reveal">
+        <div class="review-quote">“</div>
+        <p>Сын перестал бояться ходить в школу, стал открытым и спокойным. Отдельное спасибо за рекомендации для нас, родителей.</p>
+        <figcaption class="review-author"><div class="review-avatar">Е</div><div><strong>Елена</strong><span>Детский психолог</span></div></figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="section faq" id="faq">
+  <div class="container faq-grid">
+    <div class="faq-side reveal">
+      <span class="eyebrow">FAQ</span>
+      <h2 class="section-title">Частые <b>вопросы</b></h2>
+      <p>Не нашли ответ? Напишите или позвоните нам — администратор ответит на любые вопросы.</p>
+      <a href="#feedback" class="btn btn-primary">Задать вопрос
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
+    </div>
+    <div class="faq-list reveal">
+      <div class="faq-item open">
+        <button class="faq-q" aria-expanded="true">Как понять, что мне нужен психолог?<span class="faq-icon"></span></button>
+        <div class="faq-a"><div><p>Если вы чувствуете, что эмоции мешают жить, работать или строить отношения, если состояние не проходит несколько недель — это хороший повод прийти. Обращаться можно и без «серьёзной причины»: просто чтобы лучше понять себя.</p></div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">Это конфиденциально?<span class="faq-icon"></span></button>
+        <div class="faq-a"><div><p>Да. Всё, что вы рассказываете на сессии, остаётся между вами и специалистом. Мы не передаём информацию третьим лицам, за исключением случаев, прямо предусмотренных законом.</p></div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">Сколько длится сессия и сколько их нужно?<span class="faq-icon"></span></button>
+        <div class="faq-a"><div><p>Индивидуальная сессия длится 50 минут, семейная — 80 минут. Количество встреч зависит от запроса: краткосрочная работа — 5–10 сессий, глубинная — от нескольких месяцев.</p></div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">Можно ли сменить специалиста?<span class="faq-icon"></span></button>
+        <div class="faq-a"><div><p>Конечно. Контакт с психологом очень важен. Если вам некомфортно, сообщите администратору — мы подберём другого специалиста без лишних вопросов.</p></div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">Работаете ли вы онлайн?<span class="faq-icon"></span></button>
+        <div class="faq-a"><div><p>Да, все наши специалисты проводят онлайн-консультации через защищённые видеосервисы. Эффективность онлайн-формата сопоставима с очными встречами.</p></div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">Что делать, если нужна срочная помощь?<span class="faq-icon"></span></button>
+        <div class="faq-a"><div><p>Позвоните нам — для кризисных ситуаций мы стараемся организовать встречу в течение 24 часов. Если есть угроза жизни, немедленно обращайтесь в экстренные службы.</p></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-band">
+  <div class="container cta-band-inner reveal">
+    <h2>Забота о себе — это <b>не слабость</b>, а решение быть сильнее.</h2>
+    <a href="#feedback" class="btn btn-light">Записаться
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+    </a>
+  </div>
+</section>
+
+</main>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-top">
+      <div class="footer-about">
+        <a href="#top" class="logo">
+          <div class="logo-mark"><span></span></div>
+          <div class="logo-text"><strong>ОПОРА</strong><small>центр психологии</small></div>
+        </a>
+        <p>Профессиональная психологическая помощь взрослым, парам, детям и подросткам. Очно и онлайн.</p>
+        <div class="socials">
+          <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".8" fill="currentColor"/></svg></a>
+          <a href="#" aria-label="Telegram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 4L3 11l6 2 2 6 3-4 5 4z"/><path d="M9 13l12-9"/></svg></a>
+          <a href="#" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 8h3V4h-3a4 4 0 00-4 4v3H7v4h3v6h4v-6h3l1-4h-4V8a0 0 0 010 0z"/></svg></a>
+        </div>
+      </div>
+      <div>
+        <h5>Навигация</h5>
+        <ul>
+          <li><a href="#services">Услуги</a></li>
+          <li><a href="#approach">Подход</a></li>
+          <li><a href="#team">Специалисты</a></li>
+          <li><a href="#faq">FAQ</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5>Услуги</h5>
+        <ul>
+          <li><a href="#services">Индивидуальная терапия</a></li>
+          <li><a href="#services">Семейная терапия</a></li>
+          <li><a href="#services">Детский психолог</a></li>
+          <li><a href="#services">Онлайн-консультации</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5>Контакты</h5>
+        <ul>
+          <li><a href="tel:+998901234567">+998 90 123 45 67</a></li>
+          <li><a href="mailto:hello@opora-center.uz">hello@opora-center.uz</a></li>
+          <li>Ташкент, ул. Примерная, 10</li>
+          <li>Пн–Сб, 9:00–21:00</li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-big" aria-hidden="true">ОПОРА</div>
+    <div class="footer-bottom">
+      <span>© <span id="year">2026</span> ОПОРА. Все права защищены.</span>
+      <a href="#">Политика конфиденциальности</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  // Header on scroll
+  var header=document.getElementById('header');
+  function onScroll(){header.classList.toggle('scrolled',window.scrollY>30)}
+  window.addEventListener('scroll',onScroll,{passive:true});onScroll();
+
+  // Mobile menu
+  var burger=document.getElementById('burger'),menu=document.getElementById('mobileMenu');
+  function toggleMenu(open){
+    burger.classList.toggle('active',open);menu.classList.toggle('open',open);
+    burger.setAttribute('aria-expanded',open);document.body.style.overflow=open?'hidden':'';
+    header.classList.toggle('scrolled',open||window.scrollY>30);
+  }
+  burger.addEventListener('click',function(){toggleMenu(!menu.classList.contains('open'))});
+  menu.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){toggleMenu(false)})});
+  window.addEventListener('resize',function(){if(window.innerWidth>960&&menu.classList.contains('open'))toggleMenu(false)});
+
+  // Reveal on scroll
+  var els=document.querySelectorAll('.reveal');
+  if('IntersectionObserver' in window){
+    var io=new IntersectionObserver(function(entries){
+      entries.forEach(function(e){if(e.isIntersecting){e.target.classList.add('visible');io.unobserve(e.target)}});
+    },{threshold:.12,rootMargin:'0px 0px -40px 0px'});
+    els.forEach(function(el){io.observe(el)});
+  }else{els.forEach(function(el){el.classList.add('visible')})}
+
+  // FAQ accordion
+  document.querySelectorAll('.faq-item').forEach(function(item){
+    var q=item.querySelector('.faq-q');
+    q.addEventListener('click',function(){
+      var isOpen=item.classList.contains('open');
+      document.querySelectorAll('.faq-item').forEach(function(i){i.classList.remove('open');i.querySelector('.faq-q').setAttribute('aria-expanded','false')});
+      if(!isOpen){item.classList.add('open');q.setAttribute('aria-expanded','true')}
+    });
+  });
+
+  // Phone mask
+  var phone=document.getElementById('phone');
+  phone.addEventListener('input',function(){
+    var d=phone.value.replace(/\D/g,'');
+    if(d.indexOf('998')!==0)d='998'+d;
+    d=d.slice(0,12);
+    var r='+'+d.slice(0,3);
+    if(d.length>3)r+=' '+d.slice(3,5);
+    if(d.length>5)r+=' '+d.slice(5,8);
+    if(d.length>8)r+=' '+d.slice(8,10);
+    if(d.length>10)r+=' '+d.slice(10,12);
+    phone.value=r;
+  });
+  phone.addEventListener('focus',function(){if(!phone.value)phone.value='+998 '});
+
+  // Form validation
+  var form=document.getElementById('form');
+  form.addEventListener('submit',function(e){
+    e.preventDefault();
+    var ok=true;
+    function check(name,valid){var f=form.querySelector('[data-field="'+name+'"]');f.classList.toggle('error',!valid);if(!valid)ok=false}
+    check('name',form.name.value.trim().length>1);
+    check('phone',phone.value.replace(/\D/g,'').length===12);
+    check('service',form.service.value!=='');
+    if(!document.getElementById('agree').checked){ok=false;alertCheck()}
+    if(ok){
+      document.getElementById('formFields').style.display='none';
+      document.getElementById('formSuccess').classList.add('show');
+    }
+  });
+  function alertCheck(){var c=document.querySelector('.check');c.style.color='#B3261E';setTimeout(function(){c.style.color=''},1800)}
+  form.querySelectorAll('input,select').forEach(function(el){
+    el.addEventListener('input',function(){var f=el.closest('.field');if(f)f.classList.remove('error')});
+  });
+
+  document.getElementById('year').textContent=new Date().getFullYear();
+})();
+</script>
+</body>
+</html>
